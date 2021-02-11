@@ -23,13 +23,14 @@ func fibonacci(n int) int {
 	return fibonacci(n-1) + fibonacci(n-2)
 }
 
-func factorial(n int) (result int) {
+// Factorial tmp
+func Factorial(n int) (result int) {
 	result = 1
 	if n == 1 {
 		return
 	}
 
-	return n * factorial(n-1)
+	return n * Factorial(n-1)
 }
 
 // FactorialOf Experimenting with recursion
@@ -38,7 +39,7 @@ func FactorialOf(n int) {
 
 	for i := 0; i < n; i++ {
 
-		arr = append(arr, factorial(i))
+		arr = append(arr, Factorial(i))
 	}
 	printArr(arr)
 }
