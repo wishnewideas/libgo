@@ -97,7 +97,7 @@ func BubbleSort(arr []int) {
 
 }
 
-// MergeSort third sorting algorithm, more complex and uses recursion
+// MergeSort NOT FUNCTIONAL third sorting algorithm, more complex and uses recursion
 func MergeSort(arr []int, leftBound int, rightBound int) {
 
 	mid := leftBound + (rightBound-1)/2
