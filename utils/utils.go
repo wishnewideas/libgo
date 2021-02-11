@@ -23,26 +23,26 @@ func fibonacci(n int) int {
 	return fibonacci(n-1) + fibonacci(n-2)
 }
 
-// Factorial tmp
-func Factorial(n int) (result int) {
+// Factorial simple factorial
+func FactorialOf(n int) (result int) {
 	result = 1
 	if n == 1 {
 		return
 	}
 
-	return n * Factorial(n-1)
+	return n * FactorialOf(n-1)
 }
 
 // FactorialOf Experimenting with recursion
-func FactorialOf(n int) {
-	arr := []int{}
+// func factorialOf(n int) {
+// 	arr := []int{}
 
-	for i := 0; i < n; i++ {
+// 	for i := 0; i < n; i++ {
 
-		arr = append(arr, Factorial(i))
-	}
-	printArr(arr)
-}
+// 		arr = append(arr, Factorial(i))
+// 	}
+// 	printArr(arr)
+// }
 
 // SelectionSort first sorting algorithm
 func SelectionSort(unsortedArr []int) {
