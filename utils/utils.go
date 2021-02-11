@@ -1,6 +1,8 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // FibonacciRecursive recursive implementation of Fibonacci
 func FibonacciRecursive(n int) {
@@ -93,6 +95,63 @@ func BubbleSort(arr []int) {
 
 	printArr(arr)
 
+}
+
+// MergeSort third sorting algorithm, more complex and uses recursion
+func MergeSort(arr []int, leftBound int, rightBound int) {
+
+	mid := leftBound + (rightBound-1)/2
+
+	if leftBound < rightBound {
+		// first sort left half of the arr
+		MergeSort(arr, leftBound, mid)
+		// sort right half of the arr
+		MergeSort(arr, mid+1, rightBound)
+		// merge two halves together
+
+	}
+	merge(arr, leftBound, mid, rightBound)
+}
+
+func merge(arr []int, leftBound int, mid int, rightBound int) {
+	var i, j, k int
+	n1 := mid - leftBound + 1
+	n2 := rightBound - mid
+	var leftArr, rightArr []int
+
+	for i = 0; i < n1; i++ {
+		leftArr[i] = arr[leftBound+i]
+	}
+
+	for j = 0; j < n2; j++ {
+		rightArr[j] = arr[mid+1+j]
+	}
+
+	i = 0
+	j = 0
+	k = leftBound
+
+	for i < n1 && j < n2 {
+		if leftArr[i] <= rightArr[j] {
+			arr[k] = leftArr[i]
+			i++
+		} else {
+			arr[k] = rightArr[j]
+			j++
+		}
+		k++
+	}
+	for i < n1 {
+		arr[k] = leftArr[i]
+		i++
+		k++
+	}
+
+	for j < n2 {
+		arr[k] = rightArr[j]
+		j++
+		k++
+	}
 }
 
 func printArr(arr []int) {
