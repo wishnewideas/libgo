@@ -1,3 +1,3 @@
-module new_module
+module libgo
 
 go 1.15
