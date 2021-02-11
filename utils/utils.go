@@ -97,62 +97,93 @@ func BubbleSort(arr []int) {
 
 }
 
-// MergeSort NOT FUNCTIONAL third sorting algorithm, more complex and uses recursion
-func MergeSort(arr []int, leftBound int, rightBound int) {
+// MergeSort NOT FUNCTIONAL third sorting algorithm, more complex and uses recursion. rightBound should be a valid index
+func MergeSort(arr []int, leftBound int, rightBound int, auxArr []int) {
 
-	mid := leftBound + (rightBound-1)/2
-
-	if leftBound < rightBound {
-		// first sort left half of the arr
-		MergeSort(arr, leftBound, mid)
-		// sort right half of the arr
-		MergeSort(arr, mid+1, rightBound)
-		// merge two halves together
-
-	}
-	merge(arr, leftBound, mid, rightBound)
-}
-
-func merge(arr []int, leftBound int, mid int, rightBound int) {
-	var i, j, k int
-	n1 := mid - leftBound + 1
-	n2 := rightBound - mid
-	var leftArr, rightArr []int
-
-	for i = 0; i < n1; i++ {
-		leftArr[i] = arr[leftBound+i]
+	if rightBound <= leftBound {
+		return // the subsection is empty or a single element
 	}
 
-	for j = 0; j < n2; j++ {
-		rightArr[j] = arr[mid+1+j]
-	}
+	mid := leftBound + (rightBound)/2
 
-	i = 0
-	j = 0
-	k = leftBound
+	// left sub-array is a[leftBound .. mid]
+	// right sub-array is a[mid + 1 .. rightBound]
 
-	for i < n1 && j < n2 {
-		if leftArr[i] <= rightArr[j] {
-			arr[k] = leftArr[i]
-			i++
-		} else {
-			arr[k] = rightArr[j]
-			j++
+	// first sort left half of the arr
+	MergeSort(arr, leftBound, mid, auxArr)
+	// sort right half of the arr
+	MergeSort(arr, mid+1, rightBound, auxArr)
+	// merge two halves together
+
+	pointerLeft := leftBound // pointerLeft points to the beginning of the left sub-array
+	pointerRight := mid + 1  // pointerRight points to the beginning of the right sub-array
+	k := 0                   // k is the loop counter
+
+	// we loop from i to j to fill each element of the final merged array
+	for k = leftBound; k <= rightBound; k++ {
+		if pointerLeft == mid+1 { // left pointer has reached the limit
+			auxArr[k] = arr[pointerRight]
+			pointerRight++
+		} else if pointerRight == rightBound+1 { // right pointer has reached the limit
+			auxArr[k] = arr[pointerLeft]
+			pointerLeft++
+		} else if arr[pointerLeft] < arr[pointerRight] { // pointer left points to smaller element
+			auxArr[k] = arr[pointerLeft]
+			pointerLeft++
+		} else { // pointer right points to smaller element
+			auxArr[k] = arr[pointerRight]
+			pointerRight++
 		}
-		k++
-	}
-	for i < n1 {
-		arr[k] = leftArr[i]
-		i++
-		k++
 	}
 
-	for j < n2 {
-		arr[k] = rightArr[j]
-		j++
-		k++
+	for k = leftBound; k <= rightBound; k++ { // copy the elements from aux[] to a[]
+		arr[k] = auxArr[k]
 	}
+
+	//merge(arr, leftBound, mid, rightBound)
+
 }
+
+// func merge(arr []int, leftBound int, mid int, rightBound int) {
+// 	var i, j, k int
+// 	n1 := mid - leftBound + 1
+// 	n2 := rightBound - mid
+// 	var leftArr, rightArr []int
+
+// 	for i = 0; i < n1; i++ {
+// 		leftArr[i] = arr[leftBound+i]
+// 	}
+
+// 	for j = 0; j < n2; j++ {
+// 		rightArr[j] = arr[mid+1+j]
+// 	}
+
+// 	i = 0
+// 	j = 0
+// 	k = leftBound
+
+// 	for i < n1 && j < n2 {
+// 		if leftArr[i] <= rightArr[j] {
+// 			arr[k] = leftArr[i]
+// 			i++
+// 		} else {
+// 			arr[k] = rightArr[j]
+// 			j++
+// 		}
+// 		k++
+// 	}
+// 	for i < n1 {
+// 		arr[k] = leftArr[i]
+// 		i++
+// 		k++
+// 	}
+
+// 	for j < n2 {
+// 		arr[k] = rightArr[j]
+// 		j++
+// 		k++
+// 	}
+// }
 
 func printArr(arr []int) {
 	length := len(arr)
