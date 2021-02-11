@@ -77,7 +77,7 @@ func SelectionSort(unsortedArr []int) {
 }
 
 // BubbleSort second sorting algorithm
-func BubbleSort(arr []int) {
+func BubbleSort(arr []int) []int {
 	len := len(arr)
 	swapcounter := -1
 
@@ -92,9 +92,7 @@ func BubbleSort(arr []int) {
 		}
 
 	}
-
-	printArr(arr)
-
+	return arr
 }
 
 // MergeSort NOT FUNCTIONAL third sorting algorithm, more complex and uses recursion. rightBound should be a valid index
@@ -184,6 +182,47 @@ func MergeSort(arr []int, leftBound int, rightBound int, auxArr []int) {
 // 		k++
 // 	}
 // }
+
+// LinearSearch Search in an array of ints for an int
+func LinearSearch(arr []int, target int) bool {
+	arrLen := len(arr)
+	for i := 0; i < arrLen; i++ {
+		if arr[i] == target {
+			return true
+		}
+	}
+	return false
+}
+
+// BinarySearch Use utils.BubbleSort() to sort the array first!
+func BinarySearch(arr []int, target int) (found bool) {
+	leftBound := 0
+	rightBound := len(arr)
+	mid := 0
+
+	for len(arr) > 0 {
+		mid = (leftBound + rightBound) / 2
+		if target > arr[mid] {
+			leftBound = mid + 1
+			arr = arr[leftBound:rightBound]
+			rightBound = len(arr)
+			leftBound = 0
+
+		} else if target < arr[mid] {
+			rightBound = mid - 1
+			arr = arr[leftBound : mid-1]
+			leftBound = 0
+			rightBound = len(arr)
+
+		} else {
+			return true
+		}
+	}
+
+	// default case
+	return false
+
+}
 
 func printArr(arr []int) {
 	length := len(arr)
