@@ -23,7 +23,7 @@ func fibonacci(n int) int {
 	return fibonacci(n-1) + fibonacci(n-2)
 }
 
-// Factorial simple factorial
+// FactorialOf simple factorial
 func FactorialOf(n int) (result int) {
 	result = 1
 	if n == 1 {
